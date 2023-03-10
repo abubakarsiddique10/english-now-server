@@ -1,0 +1,63 @@
+const User = require("../models/user.model");
+const bcrypt = require('bcryptjs');
+const { generateToken } = require("../utils/jwtToken");
+const { verifyToke } = require("../middleware/verifyToken");
+
+module.exports.createUser = async (req, res) => {
+    try {
+        const user = await User.create(req.body);
+        res.status(200).json({
+            message: "user is successfully created",
+        })
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        })
+    }
+}
+
+
+module.exports.loginUser = async (req, res) => {
+    try {
+        const { phoneNumber, password } = req.body;
+
+        const user = await User.findOne({ phoneNumber });
+        if (!user) {
+            return res.status(300).json({
+                error: "No user found. please create an account"
+            })
+        }
+
+        const isValidPassword = bcrypt.compareSync(password, user.password);
+        if (!isValidPassword) {
+            return res.status(401).json({
+                error: "invalid password or phone number"
+            })
+        }
+
+        const token = generateToken(user);
+        res.status(200).json({
+            token: token,
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports.getUserProfile = async (req, res) => {
+    try {
+        const { phoneNumber } = req.decoded;
+        const user = await User.findOne({ phoneNumber }, "userName imageUrl");
+        res.status(200).json({
+            status: "success",
+            data: user
+        })
+    } catch (error) {
+        res.status(401).json({
+            error: "helo"
+        })
+    }
+
+
+}

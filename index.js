@@ -6,6 +6,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 app.use(`/assets/vocabulary`, express.static('assets/vocabulary'));
 app.use(`/assets/avater`, express.static('assets/avater'));
+app.use(`/assets/usersPostImage`, express.static('assets/usersPostImage'));
 const vocabularyRoute = require('./routes/v1/vocabulary.route');
 const postRoutes = require('./routes/v1/post.route')
 const userRoute = require('./routes/v1/user.route');
@@ -14,8 +15,8 @@ const userRoute = require('./routes/v1/user.route');
 
 // middleware
 app.use(cors())
-app.use(express.json())/* 
-app.use(express.urlencoded({ extended: true })) */
+app.use(express.json())
+/* app.use(express.urlencoded({ extended: true })) */
 
 
 
@@ -28,7 +29,7 @@ mongoose.connect(`${process.env.DATABASE_LOCAL}`)
 
 app.use('/api/v1/vocabulary', vocabularyRoute); // vocabulary api
 app.use('/api/v1/user', userRoute) // user singup and loging api
-/* app.use('/api/v1/post', postRoutes)  */
+app.use('/api/v1/userPost', postRoutes)
 
 
 

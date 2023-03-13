@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
         maxLength: [15, 'Your password needs to be between 5 and 15 characters'],
         trim: true
     },
-    imageUrl: String
+    userImgURL: String
 }, { timestamps: true })
 
 userSchema.pre('save', function (next) {
@@ -30,9 +30,6 @@ userSchema.pre('save', function (next) {
     this.password = hashPassword,
         next()
 })
-
-
-
 
 const User = mongoose.model('user', userSchema);
 module.exports = User;

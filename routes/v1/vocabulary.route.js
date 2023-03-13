@@ -4,8 +4,10 @@ const { vocabularyImgUpload } = require('../../middleware/multer');
 const router = express.Router();
 
 
-// vocabulary related router
+// POST METHODS / VOCABULARY CREATE AND UPDATE
 router.route('/').put(vocabularyImgUpload.single('image'), vocabularyController.createVocabulary);
+
+// GET METHODS / GET VOCABULARY
 router.route('/:category').get(vocabularyController.getVocabulary)
 
 module.exports = router

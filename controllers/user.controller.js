@@ -1,7 +1,8 @@
 const User = require("../models/user.model");
 const bcrypt = require('bcryptjs');
 const { generateToken } = require("../utils/jwtToken");
-const { verifyToke } = require("../middleware/verifyToken");
+const UsersPosts = require("../models/post.model");
+
 
 module.exports.createUser = async (req, res) => {
     try {
@@ -16,11 +17,9 @@ module.exports.createUser = async (req, res) => {
     }
 }
 
-
 module.exports.loginUser = async (req, res) => {
     try {
         const { phoneNumber, password } = req.body;
-
         const user = await User.findOne({ phoneNumber });
         if (!user) {
             return res.status(300).json({
@@ -48,7 +47,7 @@ module.exports.loginUser = async (req, res) => {
 module.exports.getUserProfile = async (req, res) => {
     try {
         const { phoneNumber } = req.decoded;
-        const user = await User.findOne({ phoneNumber }, "userName imageUrl");
+        const user = await User.findOne({ phoneNumber }, "userName userImgURL phoneNumber");
         res.status(200).json({
             status: "success",
             data: user
@@ -60,4 +59,32 @@ module.exports.getUserProfile = async (req, res) => {
     }
 
 
+}
+
+module.exports.updateUserProfile = async (req, res) => {
+    try {
+        const { phoneNumber } = req.params
+        const userImgURL = req.file?.filename;
+        const { userName } = req.body;
+        const updateData = { userName, userImgURL };
+        if (!userName) {
+            delete updateData.userName
+        }
+        if (!userImgURL) {
+            delete updateData.userImgURL
+        }
+        const result = await User.updateOne({ phoneNumber: phoneNumber }, { $set: updateData }, { runValidators: true });
+        if (result.modifiedCount > 0) {
+            const userPostDataUpdate = await UsersPosts.updateMany({ phoneNumber: phoneNumber }, { $set: updateData }, { runValidators: true });
+            res.status(200).send({
+                status: true,
+                message: "Data update successfully"
+            })
+        }
+    } catch (error) {
+        res.status(300).send({
+            status: false,
+            error: "Data is not update"
+        })
+    }
 }

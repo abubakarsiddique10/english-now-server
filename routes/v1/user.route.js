@@ -8,6 +8,7 @@ const router = express.Router();
 //POST METHODS | SIGNUP AND LOGIN
 router.route('/signup').post(userController.createUser);
 router.route('/login').post(userController.loginUser)
+router.route('/checkUser/:phoneNumber').get(userController.checkUser)
 
 // GET METHODS / USER VERYFICATION
 router.route('/profile').get(verifyToken, userController.getUserProfile)

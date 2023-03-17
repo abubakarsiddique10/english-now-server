@@ -26,17 +26,20 @@ const vocabularySchema = mongoose.Schema({
             unique: true,
         },
         synonym: {
-            type: String,
+            type: Array,
             trim: true,
+            default: [],
         },
         antonym: {
-            type: String,
-            trim: true
+            type: Array,
+            trim: true,
+            default: [],
         },
         sentence: {
             type: String,
-            trim: true
-        }
+            trim: true,
+            default: "",
+        },
     }]
 
 })

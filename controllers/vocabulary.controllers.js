@@ -4,7 +4,6 @@ const Vocabulary = require("../models/vocabulary.model");
 // vocabulary post and update congroller
 module.exports.createVocabulary = async (req, res) => {
     try {
-
         // save vocabulary with category
         const image = req.file?.filename;
         const category = req.body.category
@@ -14,7 +13,8 @@ module.exports.createVocabulary = async (req, res) => {
         // save only vocabulary
         const updateVocabulary = { ...req.body, image }
         delete updateVocabulary.category;
-        const saveVocabulary = await Vocabulary.updateOne({ category: category }, { $push: { "vocabulary": updateVocabulary } })
+        const saveVocabulary = await Vocabulary.updateOne({ category: category }, { $push: { "vocabulary": updateVocabulary } }, { runValidators: true, });
+        console.log(saveVocabulary)
 
         if (saveVocabulary.modifiedCount) {
             res.status(200).json({

@@ -47,7 +47,7 @@ module.exports.loginUser = async (req, res) => {
 module.exports.getUserProfile = async (req, res) => {
     try {
         const { phoneNumber } = req.decoded;
-        const user = await User.findOne({ phoneNumber }, "userName userImgURL phoneNumber");
+        const user = await User.findOne({ phoneNumber }, "userName userImgURL phoneNumber role");
         res.status(200).json({
             status: "success",
             data: user
@@ -86,5 +86,19 @@ module.exports.updateUserProfile = async (req, res) => {
             status: false,
             error: "Data is not update"
         })
+    }
+}
+
+module.exports.checkUser = async (req, res) => {
+    try {
+        const { phoneNumber } = req.params
+        const result = await User.findOne({ phoneNumber });
+        if (result) {
+            res.status(200).send({ status: true })
+        }
+        else if (!result) {
+            res.status(301).send({ status: false })
+        }
+    } catch (error) {
     }
 }

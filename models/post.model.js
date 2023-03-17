@@ -20,12 +20,13 @@ const postSchema = mongoose.Schema({
         type: Array
     },
     likes: {
-        type: Number
+        type: Array,
+        unique: [true, 'already exist']
     },
     postImgURL: {
         type: String,
         trim: true
-    }
+    },
 
 }, { timestamps: true })
 const UsersPosts = mongoose.model('usersPost', postSchema);

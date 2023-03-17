@@ -22,6 +22,10 @@ const userSchema = mongoose.Schema({
         maxLength: [15, 'Your password needs to be between 5 and 15 characters'],
         trim: true
     },
+    role: {
+        type: String,
+        default: "user"
+    },
     userImgURL: String
 }, { timestamps: true })
 

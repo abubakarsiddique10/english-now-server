@@ -13,7 +13,7 @@ const postRoutes = require('./routes/v1/post.route')
 const userRoute = require('./routes/v1/user.route');
 
 
-app.use(`https://english-now-server.vercel.app/assets/vocabulary`, express.static('https://english-now-server.vercel.app/assets/vocabulary'));
+app.use(`/https://english-now-server.vercel.app/assets/vocabulary`, express.static('https://english-now-server.vercel.app/assets/vocabulary'));
 
 // middleware
 app.use(cors())

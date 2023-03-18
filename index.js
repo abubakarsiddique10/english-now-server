@@ -14,7 +14,7 @@ const userRoute = require('./routes/v1/user.route');
 // middleware
 app.use(cors())
 app.use(express.json())
-/* app.use(express.urlencoded({ extended: true })) */
+app.use(express.urlencoded({ extended: true }))
 
 
 // database connected

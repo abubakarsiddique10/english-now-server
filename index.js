@@ -28,7 +28,9 @@ app.use('/api/v1/vocabulary', vocabularyRoute); // vocabulary api
 app.use('/api/v1/user', userRoute) // user singup and loging api
 app.use('/api/v1/userPost', postRoutes)
 
-
+app.get('/bakar', (req, res) => {
+    res.send({ name: "abu", age: 21 })
+})
 
 app.get('/', (req, res) => {
     res.send('server is running')

@@ -4,13 +4,16 @@ const app = express();
 const port = process.env.PORT || 5000;
 const cors = require('cors');
 const mongoose = require('mongoose');
-app.use(`/assets/vocabulary`, express.static('assets/vocabulary'));
+/* app.use(`/assets/vocabulary`, express.static('assets/vocabulary')); */
+
 app.use(`/assets/avater`, express.static('assets/avater'));
 app.use(`/assets/usersPostImage`, express.static('assets/usersPostImage'));
 const vocabularyRoute = require('./routes/v1/vocabulary.route');
 const postRoutes = require('./routes/v1/post.route')
 const userRoute = require('./routes/v1/user.route');
 
+
+app.use(`https://english-now-server.vercel.app/assets/vocabulary`, express.static('https://english-now-server.vercel.app/assets/vocabulary'));
 
 // middleware
 app.use(cors())

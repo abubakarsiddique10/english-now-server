@@ -16,12 +16,13 @@ const postSchema = mongoose.Schema({
         require: [true, 'Please provide content'],
         trim: true,
     },
-    comments: {
-        type: Array
-    },
     likes: {
         type: Array,
-        unique: [true, 'already exist']
+        default: [],
+    },
+    comments: {
+        type: Array,
+        default: []
     },
     postImgURL: {
         type: String,

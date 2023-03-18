@@ -8,6 +8,7 @@ module.exports.createUserPost = async (req, res) => {
         const result = await UsersPosts.create(createPost);
         res.status(200).send({ status: true, message: "Post Successful" })
     } catch (error) {
+        console.log(error)
         res.status(401).send({ error: error })
     }
 

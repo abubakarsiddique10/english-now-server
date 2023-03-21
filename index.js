@@ -18,7 +18,7 @@ app.use(express.json())
 
 
 // database connected
-mongoose.connect(`${process.env.DATABASE_URL}`)
+mongoose.connect(`${process.env.DATABASE_LOCAL}`)
     .then(() => console.log('database is connected'))
     .catch(() => console.log('database is not connected'))
 

@@ -31,12 +31,15 @@ module.exports.getAllUserPost = async (req, res) => {
 
 module.exports.getUserPosts = async (req, res) => {
     try {
+        const decodedNumber = req.decoded?.phoneNumber;
         const { phoneNumber } = req.params
-        const getAllUserPosts = await UsersPosts.find({ phoneNumber: phoneNumber });
-        res.status(200).send({
-            message: "posts successfully loaded",
-            posts: getAllUserPosts,
-        })
+        if (decodedNumber === phoneNumber) {
+            const getUserPosts = await UsersPosts.find({ phoneNumber: phoneNumber });
+            res.status(200).send({
+                message: "posts successfully loaded",
+                posts: getUserPosts,
+            })
+        }
     } catch (error) {
         res.status(401).send({
             message: "posts loaded fial",

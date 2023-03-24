@@ -8,30 +8,29 @@ module.exports.createVocabulary = async (req, res) => {
         const image = req.file?.filename;
         const category = req.body.category
         const vocabulary = { category: category, vocabulary: [{ ...req.body, image }] };
-        /* delete vocabulary.vocabulary[0].category; */
+        delete vocabulary.vocabulary[0].category;
 
         // save only vocabulary
         const updateVocabulary = { ...req.body, image }
         delete updateVocabulary.category;
         const saveVocabulary = await Vocabulary.updateOne({ category: category }, { $push: { "vocabulary": updateVocabulary } }, { runValidators: true, });
-        console.log(saveVocabulary)
 
         if (saveVocabulary.modifiedCount) {
-            res.status(200).json({
-                status: "success",
+            res.status(200).send({
+                status: true,
                 message: "Vocabulary update successfully",
             })
         }
         else if (!saveVocabulary.matchedCount) {
             const result = await Vocabulary.create(vocabulary);
             res.status(200).json({
-                status: "success",
+                status: true,
                 message: "vacabulary & category inserted successfully",
             })
         }
     } catch (error) {
-        res.status(400).json({
-            status: "failed",
+        res.status(400).send({
+            status: false,
             message: "Data not inserted",
             error: error.message
         })

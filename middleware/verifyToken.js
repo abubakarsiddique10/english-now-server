@@ -10,8 +10,7 @@ module.exports.verifyToken = async (req, res, next) => {
                 error: "You are not logged in"
             })
         }
-
-        const decoded = await promisify(jwt.verify)(accessToken, process.env.ACCESS_TOKEN_SECRET)
+        const decoded = await promisify(jwt.verify)(accessToken, process.env.ACCESS_TOKEN_SECRET);
         req.decoded = decoded
         next()
 

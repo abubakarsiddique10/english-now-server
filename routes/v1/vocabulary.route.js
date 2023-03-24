@@ -1,6 +1,7 @@
 const express = require('express');
 const vocabularyController = require('../../controllers/vocabulary.controllers');
 const { vocabularyImgUpload } = require('../../middleware/multer');
+const { verifyToken } = require('../../middleware/verifyToken');
 const router = express.Router();
 
 

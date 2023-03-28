@@ -1,4 +1,5 @@
 const multer = require('multer');
+const bcrypt = require('bcryptjs');
 
 const vocabularyImgStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -34,3 +35,4 @@ const postImgStorage = multer.diskStorage({
     }
 })
 module.exports.postImgUpload = multer({ storage: postImgStorage })
+

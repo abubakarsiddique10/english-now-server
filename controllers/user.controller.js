@@ -89,16 +89,28 @@ module.exports.updateUserProfile = async (req, res) => {
     }
 }
 
-module.exports.checkUser = async (req, res) => {
+module.exports.isUserExist = async (req, res) => {
     try {
-        const { phoneNumber } = req.params
-        const result = await User.findOne({ phoneNumber });
-        if (result) {
-            res.status(200).send({ status: true })
-        }
-        else if (!result) {
-            res.status(301).send({ status: false })
+        const { phoneNumber } = req.params;
+        const isExist = await User.findOne({ phoneNumber });
+        if (isExist) {
+            res.send({ status: true })
+        } else {
+            res.send({ status: false })
         }
     } catch (error) {
     }
 }
+
+module.exports.resetPassword = async (req, res) => {
+    try {
+        const { phoneNumber } = req.params
+        const { password } = req.body;
+        const hashPassword = bcrypt.hashSync(password);
+        const updatePassword = await User.updateOne({ phoneNumber: phoneNumber }, { $set: { password: hashPassword } });
+        res.status(200).send({ status: true, message: "update successful" })
+    } catch (error) {
+        res.status(301).send({ status: false, message: "update not successful" })
+    }
+}
+

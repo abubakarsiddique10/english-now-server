@@ -18,7 +18,7 @@ app.use(express.json())
 
 
 // database connected
-mongoose.connect(`${process.env.DATABASE_LOCAL}`)
+mongoose.connect(`${process.env.DATABASE_URL}`)
     .then(() => console.log('database is connected'))
     .catch(() => console.log('database is not connected'))
 
@@ -27,6 +27,9 @@ app.use('/api/v1/vocabulary', vocabularyRoute); // vocabulary api
 app.use('/api/v1/user', userRoute) // user singup and loging api
 app.use('/api/v1/userPost', postRoutes)
 
+app.get('/hello', (req, res) => {
+    console.log('called index')
+})
 
 app.get('/', (req, res) => {
     res.send('server is running')

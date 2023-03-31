@@ -13,7 +13,7 @@ const userRoute = require('./routes/v1/user.route');
 
 // middleware
 app.use(cors({
-    origin: "https://english-now-server.vercel.app"
+    origin: "http://localhost:3000"
 }))
 app.use(express.json())
 /* app.use(express.urlencoded({ extended: true })) */

@@ -47,7 +47,7 @@ module.exports.loginUser = async (req, res) => {
 module.exports.getUserProfile = async (req, res) => {
     try {
         const { phoneNumber } = req.decoded;
-        const user = await User.findOne({ phoneNumber }, "userName userImgURL phoneNumber role");
+        const user = await User.findOne({ phoneNumber }, "userName userImgURL phoneNumber");
         res.status(200).json({
             status: "success",
             data: user

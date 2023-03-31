@@ -27,16 +27,20 @@ app.use('/api/v1/vocabulary', vocabularyRoute); // vocabulary api
 app.use('/api/v1/user', userRoute) // user singup and loging api
 app.use('/api/v1/userPost', postRoutes)
 
-app.get('/hello', (req, res) => {
-    console.log('called index')
-})
 
 app.get('/', (req, res) => {
     res.send('server is running')
 })
+
 app.all('*', (req, res) => {
     res.send("route not found")
 })
+
+app.use((err, req, res, next) => {
+    console.log(err.message)
+    res.json({ error: err.message })
+})
+
 app.listen(port, () => {
     console.log('server is running')
 })

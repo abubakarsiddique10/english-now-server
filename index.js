@@ -12,7 +12,9 @@ const postRoutes = require('./routes/v1/post.route')
 const userRoute = require('./routes/v1/user.route');
 
 // middleware
-app.use(cors())
+app.use(cors({
+    origin: "https://english-now-server.vercel.app"
+}))
 app.use(express.json())
 /* app.use(express.urlencoded({ extended: true })) */
 

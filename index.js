@@ -13,14 +13,14 @@ const userRoute = require('./routes/v1/user.route');
 
 // middleware
 app.use(cors({
-    origin: "http://localhost:3000/"
+    origin: "http://localhost:3000"
 }))
 app.use(express.json())
 /* app.use(express.urlencoded({ extended: true })) */
 
 
 // database connected
-mongoose.connect(`${process.env.DATABASE_URL}`)
+mongoose.connect(`${process.env.DATABASE_LOCAL}`)
     .then(() => console.log('database is connected'))
     .catch(() => console.log('database is not connected'))
 

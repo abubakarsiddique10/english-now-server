@@ -5,8 +5,8 @@ module.exports.createUserPost = async (req, res) => {
         const postImgURL = req.file?.filename;
         const userPost = req.body;
         const createPost = { ...userPost, postImgURL };
-        const result = await UsersPosts.create(createPost);
-        res.status(200).send({ status: true, message: "Post Successful" })
+        const post = await UsersPosts.create(createPost);
+        res.status(200).send({ status: true, post, message: "Post Successful", })
     } catch (error) {
         res.status(401).send({ error: error })
     }
@@ -51,8 +51,8 @@ module.exports.addComment = async (req, res) => {
     try {
         const { id } = req.params
         const comment = req.body;
-        const addedComment = await UsersPosts.updateOne({ _id: id }, { $push: { 'comments': comment } });
-        res.status(200).send({ status: true, message: "successful" })
+        const addedComment = await UsersPosts.findOneAndUpdate({ _id: id }, { $push: { 'comments': comment } }, { new: true })
+        res.status(200).send({ status: true, comments: addedComment.comments, id: addedComment._id })
     } catch (error) {
         res.status(301).send({ status: false })
     }

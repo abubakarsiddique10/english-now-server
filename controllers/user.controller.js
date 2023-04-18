@@ -52,9 +52,10 @@ module.exports.getUserProfile = async (req, res) => {
             status: "success",
             data: user
         })
+
     } catch (error) {
         res.status(401).json({
-            error: "helo"
+            error: error
         })
     }
 
